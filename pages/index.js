@@ -9,7 +9,6 @@ import { GET_ALL_POKEMON } from "@/query/Query";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -23,11 +22,6 @@ export default function Home() {
   const { loading, error, data } = useQuery(GET_ALL_POKEMON, {
     variables: { first },
   });
-
-  const handleClick = (pItem) => {
-    console.log("raj selected item", pItem);
-    setOpenDetailPage(pItem);
-  };
 
   if (loading)
     return (
@@ -48,10 +42,7 @@ export default function Home() {
       </div>
     );
 
-
   const items = data.pokemons;
-
-  
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
@@ -71,30 +62,13 @@ export default function Home() {
   };
   return (
     <div>
-    <Head >
-      Buyceps Assignment
-    </Head>
+      <Head>
+        <title>Buyceps Assignment</title>
+        <meta property="og:title" content="Buyceps Assignment" key="title" />
+      </Head>
       <Navbar />
+      <h2 className="sm:text-3xl text-2xl text-gray-900 font-medium title-font mb-6  text-center">Pokemon's</h2>
       <div className="text-gray-600 body-font flex flex-col justify-center items-center">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap -m-4 justify-center">
-            {currentItems && currentItems.map((item, index) => (
-              <div
-                className="xl:w-1/4 md:w-1/2 m-4 drop-shadow-lg cursor-pointer "
-                // onClick={() => handleClick(item)}
-              >
-                <ListViews
-                  id={item.id}
-                  name={item.name}
-                  number={item.number}
-                  types={item.types}
-                  imageUrl={item.image}
-                />
-              </div>
-            ))}
-
-          </div>
-        </div>
         <ReactPaginate
           breakLabel="..."
           nextLabel=" >"
@@ -114,6 +88,25 @@ export default function Home() {
           containerClassName="flex gap-2 item-center"
           activeClassName=" bg-black text-white p-2 w-10 rounded text-center "
         />
+        <div className="container px-5 py-10 mx-auto">
+          <div className="flex flex-wrap -m-4 justify-center">
+            {currentItems &&
+              currentItems.map((item, index) => (
+                <div
+                  className="xl:w-1/4 md:w-1/2 m-4 drop-shadow-lg cursor-pointer "
+                  // onClick={() => handleClick(item)}
+                >
+                  <ListViews
+                    id={item.id}
+                    name={item.name}
+                    number={item.number}
+                    types={item.types}
+                    imageUrl={item.image}
+                  />
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

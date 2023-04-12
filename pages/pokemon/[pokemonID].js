@@ -5,12 +5,13 @@ import { useQuery } from "@apollo/client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import PokemonModal from "@/components/Modal";
+import Head from "next/head";
 
 function pokemonID() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () =>{
+  const handleOpen = () => {
     setOpen(true);
-  } 
+  };
   const handleClose = () => setOpen(false);
   const router = useRouter();
   const { pokemonID } = router.query;
@@ -39,9 +40,12 @@ function pokemonID() {
 
   const pokemonDetails = data.pokemon;
 
-  console.log("raj",open);
   return (
     <div>
+      <Head>
+        <title>Pokemon Details</title>
+        <meta property="og:title" content="Pokemon Details" key="title" />
+      </Head>
       <Navbar />
       <section class="text-gray-600 body-font">
         <div class="container mx-auto flex px-24 py-24 md:flex-row flex-col items-center">
@@ -179,14 +183,21 @@ function pokemonID() {
             </div>
 
             <div class="flex justify-center">
-              <button onClick={handleOpen} class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <button
+                onClick={handleOpen}
+                class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+              >
                 Pokemon's evolutions
               </button>
             </div>
           </div>
         </div>
       </section>
-      <PokemonModal Open={open} handleClose={handleClose} pokemonID={pokemonID} />
+      <PokemonModal
+        Open={open}
+        handleClose={handleClose}
+        pokemonID={pokemonID}
+      />
       <Footer />
     </div>
   );
